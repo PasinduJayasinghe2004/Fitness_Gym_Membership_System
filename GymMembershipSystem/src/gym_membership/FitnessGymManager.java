@@ -55,11 +55,85 @@ public class FitnessGymManager implements GymManager{
 
     @Override
     public void registerMember(){
-        if()
-    }
 
-    public void checkExpiringMemberships() {
-    }
+        if(membershipList.size()>=maxCapacity){
+            System.out.println("Gym is at full member capacity.");
+            return;
+        }
+        System.out.println("+++++++++++REGISTER NEW MEMBER+++++++++++");
+        System.out.println("1.Basic Membership($29.99/month)");
+        System.out.println("2.Premium Membership($79.99/month");
+        System.out.println("3.Student Membership(30% discount");
+        System.out.println("Enter Membership Type: ");
 
+        int type=scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Enrer member Id: ");
+        String memberId=scanner.nextLine();
+
+        System.out.println("Enter Member Name: ");
+        String name=scanner.nextLine();
+
+        System.out.println("Enter email: ");
+        String mail=scanner.nextLine();
+
+        System.out.println("Enter phone number: ");
+        String phone=scanner.nextLine();
+
+        System.out.println("Enter duration (Months) : ");
+        int duration=scanner.nextInt();
+        scanner.nextLine();
+
+        Membership membership=null;
+
+        switch (type) {
+            case 1:
+                BasicMembership  basic=new BasicMembership(memberId, name);
+                basic.setEmail(mail);
+                basic.setPhoneNumber(phone);
+                basic.setDuration(duration);
+                System.out.println("Enter Access hours(6AM -10PM) : ");
+                basic.setAccessHours(scanner.nextLine());
+                membership=basic;
+                break;
+
+            case 2:
+                PremiumMembership premium=new PremiumMembership(memberId, name);
+                premium.setEmail(mail);
+                premium.setPhoneNumber(phone);
+                premium.setDuration(duration);
+                System.out.println("Assign personal trainer: ");
+                premium.setPersonalTrainer(scanner.nextLine());
+                System.out.println("Include group class(true/false): ");
+                premium.setIncludesClass(scanner.nextBoolean());
+                scanner.nextLine();
+                membership=premium;
+                break;
+
+            case 3:
+                StudentMembership student=new StudentMembership(memberId, name);
+                student.setEmail(mail);
+                student.setPhoneNumber(phone);
+                student.setDuration(duration);
+                System.out.println("Enter student id: ");
+                student.setStudentId(scanner.nextLine());
+                System.out.println("Enter university name: ");
+                student.setUniversityName(scanner.nextLine());
+                
+
+
+
+
+
+                
+        
+            default:
+                break;
+        }
+
+
+
+    }
 
 }
