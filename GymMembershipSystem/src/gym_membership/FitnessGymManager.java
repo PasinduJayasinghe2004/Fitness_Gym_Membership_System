@@ -56,7 +56,99 @@ public class FitnessGymManager implements GymManager{
 
     @Override
     public void registerMember(){
-        if()
+        if(membershipList.size()>=maxCapacity){
+            System.out.println("Gym is full member capacity");
+            return;
+        }
+        System.out.println("=======Register new Member=======");
+        System.out.println("1.Basic Membership");
+        System.out.println("2.Premium Membership");
+        System.out.println("3.Student Memberhsip");
+
+        int type=scanner.nextInt();
+        scanner.nextLine();
+
+
+        System.out.println("Enter new member Id: ");
+        String memberId=scanner.nextLine();
+
+        System.out.println("Enter member name: ");
+        String name=scanner .nextLine();
+
+        System.out.println("Enter emai: ");
+        String email=scanner.nextLine();
+
+        System.out.println("Enter  phone Number: ");
+        String phone=scanner.nextLine();
+
+        System.out.println("Enter duration month: ");
+        int duration=scanner.nextInt();
+        scanner.nextLine();
+
+        Membership membership=null;
+
+        switch(type){
+            case 1:
+                BasicMembership basic=new BasicMembership(memberId, name);
+                basic.setEmail(email);
+                basic.setPhoneNumber(phone);
+                basic.setDuration(duration);
+
+                System.out.println("Enter access hours: ");
+                basic.setAccessHours(scanner.nextLine());
+
+                membership=basic;
+                break;
+
+            case 2:
+                PremiumMembership premium=new PremiumMembership(memberId, name);
+                premium.setEmail(email);
+                premium.setPhoneNumber(phone);
+                premium.setDuration(duration);
+
+                System.out.println("Assign Personal trainer: ");
+                premium.setPersonalTrainer(scanner.nextLine());
+
+                System.out.println("Include group class: ");
+                premium.setIncludesClass(scanner.nextBoolean());
+                scanner.nextLine();
+
+                membership=premium;
+                break;
+
+            case 3:
+                StudentMembership student=new StudentMembership(memberId, name);
+                student.setEmail(email); 
+                student.setPhoneNumber(phone); 
+                student.setDuration(duration); 
+                
+                System.out.println("Enter student Id: ");
+                student.setStudentId(scanner.nextLine());
+
+                System.out.println("Enter university Name: ");
+                student.setUniversityName(scanner.nextLine());
+
+                System.out.println("enter discount rate(0.0 TO 1.0): ");
+                student.setDiscountRate(scanner.nextDouble());
+                scanner.nextLine();
+
+                membership=student;
+                break;
+
+            default:
+                System.out.println("Invalid membership type.");
+                return;    
+
+
+
+        }
+        membershipList.add(membership);
+        System.out.println("\n Member registered successfully.");
+        System.out.println("Total Cost: $"+String.format("%.2f",membership.getTotalCost()));
+        System.out.println("expiry date: "+membership.getExpiryDate());
+
+
+
     }
 
     public void checkExpiringMemberships() {
